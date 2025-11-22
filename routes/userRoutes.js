@@ -24,8 +24,8 @@ router.post("/upload-avatar", auth, async (req, res) => {
     }
 
     try {
-      // Return the URL path to the uploaded avatar
-      const avatarUrl = `/uploads/avatars/${req.file.filename}`;
+      // Cloudinary returns the full URL in req.file.path
+      const avatarUrl = req.file.path;
 
       // Update user's avatar in database
       const user = await User.findByIdAndUpdate(
@@ -47,7 +47,6 @@ router.post("/upload-avatar", auth, async (req, res) => {
         success: true,
         message: "Avatar uploaded successfully",
         avatarUrl: avatarUrl,
-        filename: req.file.filename,
         user: user,
       });
     } catch (error) {

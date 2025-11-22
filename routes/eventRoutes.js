@@ -36,14 +36,13 @@ router.post("/upload-image", protect, (req, res) => {
       });
     }
 
-    // Return the URL path to the uploaded image
-    const imageUrl = `/uploads/events/${req.file.filename}`;
+    // Cloudinary returns the full URL in req.file.path
+    const imageUrl = req.file.path;
 
     res.status(200).json({
       success: true,
       message: "Image uploaded successfully",
       imageUrl: imageUrl,
-      filename: req.file.filename,
     });
   });
 });
